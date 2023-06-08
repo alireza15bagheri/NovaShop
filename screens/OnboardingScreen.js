@@ -7,7 +7,7 @@ import sliderData from "../src/data/SliderData";
 import Paginator from "../components/Paginator";
 import NextButton from "../components/NextButton";
 
-const OnboardingScreen = () => {
+const OnboardingScreen = ({ navigation }) => {
   // keep track of which slide user is viewing:
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -25,6 +25,7 @@ const OnboardingScreen = () => {
     } else {
       try {
         await AsyncStorage.setItem("@viewedOnboarding", "true");
+        navigation.navigate("Home");
       } catch (err) {
         console.log("Error @setItem: ", err);
       }

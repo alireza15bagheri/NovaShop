@@ -45,11 +45,18 @@ export default function App() {
       ) : (
         <NavigationContainer>
           <Stack.Navigator>
-            {viewedOnboarding ? (
-              <Stack.Screen name="Home" component={HomeScreen} />
-            ) : (
-              <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+            {viewedOnboarding ? null : (
+              <Stack.Screen
+                name="Onboarding"
+                options={{ headerShown: false }}
+                component={OnboardingScreen}
+              />
             )}
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{ headerLeft: null, headerTitleAlign: 'center' }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       )}
