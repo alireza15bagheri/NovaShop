@@ -5,17 +5,14 @@ import {
   View,
   useWindowDimensions,
   ScrollView,
+  Image,
 } from "react-native";
 import { Button } from "react-native-paper";
 import { Entypo } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Carousel from "react-native-snap-carousel";
 
-const carouselData = [
-  { id: 1, title: "Item 1" },
-  { id: 2, title: "Item 2" },
-  { id: 3, title: "Item 3" },
-];
+import carouselData from "../src/data/CarouselData";
 
 const HomeScreen = () => {
   const { width: SCREEN_WIDTH } = useWindowDimensions();
@@ -28,6 +25,15 @@ const HomeScreen = () => {
     }
   };
 
+  const carouselRenderItem = ({ item }) => {
+    return (
+      <View style={{alignItems: "center" }}>
+        <Text>{item.title} : {item.offPercent}%</Text> 
+        <Image source={item.image} style={styles.sliderImage} />
+      </View>
+    );
+  };
+
   return (
     <ScrollView
       style={styles.container}
@@ -37,13 +43,9 @@ const HomeScreen = () => {
         <Text style={styles.carouselTitleText}>This Week's Special Offers</Text>
         <Carousel
           data={carouselData}
-          renderItem={({ item }) => (
-            <View style={{ backgroundColor: "red", height: 150 }}>
-              <Text>{item.title}</Text>
-            </View>
-          )}
+          renderItem={(item) => carouselRenderItem(item)}
           sliderWidth={SCREEN_WIDTH * 0.8}
-          itemWidth={SCREEN_WIDTH * 0.6}
+          itemWidth={SCREEN_WIDTH * 0.8}
         />
       </View>
       <Text>HomeScreen</Text>
@@ -73,5 +75,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 700,
     marginBottom: 10,
+  },
+  sliderImage: {
+    width: 300,
+    height: 300,
+    borderRadius: 8,
   },
 });
